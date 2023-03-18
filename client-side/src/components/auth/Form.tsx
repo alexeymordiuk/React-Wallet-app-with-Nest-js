@@ -9,8 +9,14 @@ import {
 import { checkIsLoggedIn, logOut } from "../../api/user.api";
 import { User } from "../../interface/user.interface";
 import { useNavigate } from "react-router-dom";
+import {
+  FormTitle,
+  FormWrraper,
+  LogOutButton,
+} from "./Form.styled";
+import FromBlocks from "./FromBlocks";
 
-interface FormData {
+export interface FormData {
   email: string;
   password: string;
 }
@@ -44,7 +50,7 @@ const Form: FC = () => {
         dispatch(loginSuccess(user));
         setUser(user);
         setIsLoggedIn(true);
-        localStorage.setItem('loggedInUser', JSON.stringify(user));
+        localStorage.setItem("loggedInUser", JSON.stringify(user));
 
         setIsLoggedIn(true);
 
@@ -73,7 +79,7 @@ const Form: FC = () => {
         console.log(user.id);
         setIsLoggedIn(false);
         setUser(null);
-        localStorage.removeItem('loggedInUser');
+        localStorage.removeItem("loggedInUser");
       }
     } catch (error) {
       console.error(error);
@@ -81,7 +87,7 @@ const Form: FC = () => {
   };
 
   useEffect(() => {
-    const loggedInUser = localStorage.getItem('loggedInUser');
+    const loggedInUser = localStorage.getItem("loggedInUser");
     if (loggedInUser) {
       setUser(JSON.parse(loggedInUser));
       setIsLoggedIn(true);
@@ -89,38 +95,27 @@ const Form: FC = () => {
   }, []);
 
   return (
-    <>
+    <FormWrraper>
+      <FormTitle>
+        {isLoggedIn ? (
+          <h1>You are logged in!</h1>
+        ) : (
+          <>{isRegistering ? <h1>Registration</h1> : <h1>Login</h1>}</>
+        )}
+      </FormTitle>
+
       {isLoggedIn ? (
-         <button onClick={handleLogout}>Log out</button>
-         ) : (
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={formData.email}
-            onChange={(e) =>
-              setFormData({ ...formData, email: e.target.value })
-            }
-          />
-          <input
-            type="password"
-            value={formData.password}
-            onChange={(e) =>
-              setFormData({ ...formData, password: e.target.value })
-            }
-          />
-          <input type="submit" value={isRegistering ? "Register" : "Login"} />{" "}
-          <p>
-            {isRegistering ? "Already have an account?" : "Need to register?"}
-          </p>
-          <button
-            type="button"
-            onClick={() => setIsRegistering(!isRegistering)}
-          >
-            {isRegistering ? "Switch to login" : "Switch to registration"}{" "}
-          </button>
-        </form>
+        <LogOutButton onClick={handleLogout}>Log out</LogOutButton>
+      ) : (
+        <FromBlocks
+          formData={formData}
+          setFormData={setFormData}
+          isRegistering={isRegistering}
+          setIsRegistering={setIsRegistering}
+          handleSubmit={handleSubmit}
+        />
       )}
-    </>
+    </FormWrraper>
   );
 };
 
