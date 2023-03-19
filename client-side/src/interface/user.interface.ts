@@ -10,7 +10,7 @@ export interface User {
     id?: number;
     amount: number;
     category: string;
-    userId: number;
+    userId?: number;
     user?: User;
   }
   

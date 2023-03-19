@@ -14,7 +14,7 @@ export const links = [
     {
         id: 3,
         path: 'expenses',
-        title: 'Costs',
+        title: 'Statistics',
         icon: 'expenses'
     },
     {

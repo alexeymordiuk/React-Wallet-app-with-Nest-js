@@ -1,5 +1,5 @@
 import { BadRequestException, Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { CreateUserDto, LoginDto } from 'src/interface/interface';
+import { CreateUserDto, Expense, ExpenseCreateInput, LoginDto } from 'src/interface/interface';
 import { UserService } from './user.service';
 
 @Controller('users')
@@ -32,6 +32,23 @@ export class UserControllerPost {
   await this.userService.logout(userId);
   return { message: 'Logout successful' };
 }
+
+@Post(':userId/expenses')
+async addExpense(@Param('userId') userId: string, @Body() expense: ExpenseCreateInput) {
+  if (!userId) {
+    throw new BadRequestException('Invalid user ID');
+  }
+  const user = await this.userService.addExpense(userId, expense);
+  return user.expenses;
+}
+
+ @Get(':userId/expenses')
+  async getUserExpenses(@Param('userId') userId: string) {
+    if (!userId) {
+      throw new BadRequestException('Invalid user ID');
+    }
+    return this.userService.getUserExpenses(userId);
+  }
 
   @Get(':email')
   async getUserByEmail(@Param('email') email: string) {

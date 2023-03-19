@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { Expense, LoginDto, User } from 'src/interface/interface';
+import { Expense, ExpenseCreateInput, LoginDto, User } from 'src/interface/interface';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -29,16 +29,15 @@ export class UserService {
       where: { email: loginDto.email },
     });
     if (!user) {
-      return null; // or throw an error with a custom message if you prefer
+      return null; 
     }
     const isPasswordValid = await bcrypt.compare(
       loginDto.password,
       user.password,
     );
     if (!isPasswordValid) {
-      return null; // or throw an error with a custom message if you prefer
+      return null;
     }
-    // Set the isLoggedIn field of the user to true
     await this.prisma.user.update({
       where: { id: user.id },
       data: { isLoggedIn: true },
@@ -62,6 +61,39 @@ export class UserService {
       data: { isLoggedIn: false },
     });
   }
+
+  async addExpense(userId: string, expense: ExpenseCreateInput) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      include: { expenses: true },
+    });
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+    const newExpense = await this.prisma.expense.create({
+      data: {
+        ...expense,
+        userId: user.id,
+      },
+    });
+    return this.prisma.user.update({
+      where: { id: userId },
+      data: { expenses: { connect: { id: newExpense.id } } },
+      include: { expenses: true },
+    });
+  }
+
+  async getUserExpenses(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      include: { expenses: true },
+    });
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+    return user.expenses;
+  }
+
 
   async findOneByEmail(email: string) {
     return this.prisma.user.findUnique({

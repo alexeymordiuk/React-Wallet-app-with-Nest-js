@@ -1,9 +1,9 @@
 import { FC } from 'react'
-import Transactionable from '../components/statistics/Transactionable'
+import TransactionTable from '../components/transactions/TransactionTable'
 
 const Transaction: FC = () => {
   return (
-    <Transactionable/>
+    <TransactionTable/>
   )
 }
 
