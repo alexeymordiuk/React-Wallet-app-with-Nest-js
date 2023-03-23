@@ -8,7 +8,7 @@ export interface User {
 }
 
 export interface Expense {
-  id?: string;
+  id?: number;
   amount: number;
   category: string;
   user?: User[];

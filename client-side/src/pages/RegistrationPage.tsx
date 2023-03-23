@@ -1,11 +1,8 @@
-import {FC} from 'react'
-import Registration from '../components/auth/Registration'
+import { FC } from "react";
+import Registration from "../components/auth/Registration";
 
 const RegistationPage: FC = () => {
-
-  return (
-      <Registration/>
-  )
-}
+  return <Registration />;
+};
 
 export default RegistationPage;

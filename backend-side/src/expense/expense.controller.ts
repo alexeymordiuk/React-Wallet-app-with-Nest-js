@@ -19,20 +19,20 @@ export class ExpenseController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Expense> {
+  async findOne(@Param('id') id: number): Promise<Expense> {
     return this.expenseService.findOne(+id);
   }
 
   @Patch(':id')
   async update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() expense: ExpenseUpdateInput,
   ): Promise<Expense> {
     return this.expenseService.update(+id, expense);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string): Promise<Expense> {
-    return this.expenseService.remove(+id);
-  }
+  async remove(@Param('id') id: number): Promise<Expense> {
+  return this.expenseService.remove(id);
+}
 }

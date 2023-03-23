@@ -54,7 +54,7 @@ const Form: FC = () => {
 
         setIsLoggedIn(true);
 
-        navigate("/");
+        navigate("/transaction");
         if (user) {
           const isLoggedIn = await checkIsLoggedIn(user.id);
           console.log("User is logged in:", isLoggedIn);
@@ -100,7 +100,7 @@ const Form: FC = () => {
         {isLoggedIn ? (
           <h1>You are logged in!</h1>
         ) : (
-          <>{isRegistering ? <h1>Registration</h1> : <h1>Login</h1>}</>
+          <>{isRegistering ? <h1 style={{color: '#ffffff'}}>Registration</h1> : <h1 style={{color: '#ffffff'}}>Login</h1>}</>
         )}
       </FormTitle>
 

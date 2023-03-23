@@ -38,6 +38,7 @@ export class ExpenseService {
   }
 
   async remove(id: number): Promise<Expense> {
-    return this.prisma.expense.delete({ where: { id } });
+    const deletedExpense = await this.prisma.expense.delete({ where: { id: parseInt(id.toString()) } });
+    return deletedExpense;
   }
 }

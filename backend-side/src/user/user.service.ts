@@ -94,7 +94,6 @@ export class UserService {
     return user.expenses;
   }
 
-
   async findOneByEmail(email: string) {
     return this.prisma.user.findUnique({
       where: { email },

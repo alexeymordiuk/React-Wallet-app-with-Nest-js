@@ -2,14 +2,18 @@ import { FC } from "react";
 import { Outlet } from "react-router-dom";
 import { Container } from "../components/Container";
 import Header from "../components/header/Header";
+import { Wrraper } from "../components/ui/Wrraper";
+
 
 const Layout: FC = () => {
   return (
     <>
       <Container>
         <main>
-          <Header />
+          <Wrraper>
           <Outlet />
+          <Header />
+          </Wrraper>
         </main>
       </Container>
     </>

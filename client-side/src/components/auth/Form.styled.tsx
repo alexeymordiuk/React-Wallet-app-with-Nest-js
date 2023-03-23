@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 export const FormWrraper = styled.div({
-    background: '#BCBF1D',
-    borderRadius: '20px',
     padding: '15px',
-    height: 'calc(100vh - 150px)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    minHeight: 'calc(100vh - 150px)',
+    width: '100%',
+    maxWidth: '1000px',
 })
 
 export const FormTitle = styled.div({
@@ -19,12 +19,11 @@ export const FormTitle = styled.div({
 export const FormDirection = styled.form({
     display: 'flex',
     flexDirection: 'column',
-    width: '100%',
-    maxWidth: '1000px',
-    background: '#000C22',
+    background: '#506449',
     padding: '20px',
     borderRadius: '20px',
-    rowGap: '20px'
+    rowGap: '20px',
+    width: '100%'
 })
 
 export const Label = styled.label({
