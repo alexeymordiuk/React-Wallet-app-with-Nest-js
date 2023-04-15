@@ -26,7 +26,9 @@ export class ExpenseService {
   }
 
   async findAll(): Promise<Expense[]> {
-    return this.prisma.expense.findMany();
+    const expenses = await this.prisma.expense.findMany();
+    expenses.forEach(expense => console.log(expense.createdAt));
+    return expenses;
   }
 
   async findOne(id: number): Promise<Expense> {

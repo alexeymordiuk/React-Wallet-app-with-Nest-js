@@ -22,7 +22,7 @@ const TransactionWindow: FC<TransactionWindow> = ({
 }) => {
   return (
     <Window>
-      <WindowTitle>Add a transaction</WindowTitle>
+      <WindowTitle>Add Transaction</WindowTitle>
       <button onClick={() => setOpen(!open)}>close</button>
       <Form onSubmit={handleSubmit}>
         <Input

@@ -12,6 +12,7 @@ export interface User {
     category: string;
     userId?: number;
     user?: User;
+    createdAt?: string;
   }
   
   export type CreateUserDto = Omit<User, 'id'>;

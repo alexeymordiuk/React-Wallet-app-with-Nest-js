@@ -55,7 +55,11 @@ export const addExpense = async (userId: string, expenseData: Expense) => {
 export const getExpense = async (userId: string) => {
   try {
     const response = await axios.get(`${BASE_URL}/users/${userId}/expenses`);
-    return response.data;
+    const expenses = response.data.map((expense: Expense) => ({
+      ...expense,
+      createdAt: expense.createdAt ? new Date(expense.createdAt).toLocaleDateString() : undefined
+    }));
+    return expenses;
   } catch (error) {
     console.error(error);
     throw error;

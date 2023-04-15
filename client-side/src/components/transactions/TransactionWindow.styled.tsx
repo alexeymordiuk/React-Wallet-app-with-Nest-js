@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Window = styled.div({
     width: '50vw',
     minHeight: '50vh',
-    background: '#1A17AB',
+    background: '#1d1d1d',
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -43,7 +43,7 @@ export const SubmitButton = styled.button({
     transition: "0.3s ease-in-out",
 
    "hover": {
-        backgroundColor: "#BCBF1D"
+    backgroundColor: "#BCBF1D"
     }
 })
 
