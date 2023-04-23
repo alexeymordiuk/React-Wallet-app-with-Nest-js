@@ -3,6 +3,7 @@ export interface User {
   id: string;
   email: string;
   password: string;
+  balance?: number;
   isLoggedIn?: boolean;
   expenses?: Expense[];
 }
@@ -27,6 +28,11 @@ export interface ExpenseCreateInput {
 export interface ExpenseUpdateInput {
   amount?: number;
   category?: string;
+}
+
+export interface UserUpdateInput extends Omit<User, 'id'> {
+  balance?: number;
+  expenses?: Expense[];
 }
 
 

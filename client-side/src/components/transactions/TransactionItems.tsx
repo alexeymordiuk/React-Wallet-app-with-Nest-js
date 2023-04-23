@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, FormEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getExpense } from "../../api/user.api";
 import { Expense } from "../../interface/user.interface";
@@ -22,6 +22,7 @@ import {
 import { titles } from "./transactions.title.data";
 import TransactionWindow from "./TransactionWindow";
 import { BsFillTrashFill, BsPlus } from "react-icons/bs";
+import { getAccountBalance, updateAccountBalance } from "../../api/expense.api";
 
 const TransactionItems: FC = () => {
   const [amount, setAmount] = useState("");
@@ -31,18 +32,20 @@ const TransactionItems: FC = () => {
   );
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [open, setOpen] = useState(false);
+  const [balance, setBalance] = useState<number | null>(null);
+  const [inputValue, setInputValue] = useState('');
   const totalAmount = expenses.reduce(
     (sum, expense) => sum + expense.amount,
     0
   );
   const dispatch: any = useDispatch();
   const loggedInUser = localStorage.getItem("loggedInUser");
+  const userId = loggedInUser ? JSON.parse(loggedInUser).id : null;
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
-    const userId = loggedInUser ? JSON.parse(loggedInUser).id : null;
     if (userId === null) {
       return;
     }
@@ -80,6 +83,35 @@ const TransactionItems: FC = () => {
     }
   };
 
+  const balanceUpdate = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("userId:", userId);
+    console.log("inputValue:", inputValue);
+    try {
+      const newBalance = await updateAccountBalance(userId, parseInt(inputValue));
+      setBalance(newBalance);
+      setInputValue('');
+    } catch (error) {
+      console.error("Failed to update balance:", error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchBalance = async () => {
+      if (userId) {
+        try {
+          const balance = await getAccountBalance(userId);
+          setBalance(balance);
+        } catch (error) {
+          console.error("Failed to get balance:", error);
+        }
+      }
+    };
+  
+    fetchBalance();
+  }, [userId]);
+
+
   useEffect(() => {
     const userId = loggedInUser ? JSON.parse(loggedInUser).id : null;
     if (userId) {
@@ -93,7 +125,7 @@ const TransactionItems: FC = () => {
     <>
       {loggedInUser ? (
         <TransactionItemsWrraper>
-          <Card />
+          <Card balance={balance}/>
           <div>
             <TransactionTable>
               <TransactionTableHeader>
@@ -118,6 +150,15 @@ const TransactionItems: FC = () => {
               ))}
             </TransactionTable>
             <TransactionTotal>
+              <form onSubmit={balanceUpdate}>
+                <input
+                  type="text"
+                  placeholder="Enter amount"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                />
+                <button type="submit">Update Balance</button>
+              </form>
               <TransactionAmount>Total: - {totalAmount} Uah</TransactionAmount>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "15px" }}

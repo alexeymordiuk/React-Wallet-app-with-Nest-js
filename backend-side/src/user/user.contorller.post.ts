@@ -50,8 +50,22 @@ async addExpense(@Param('userId') userId: string, @Body() expense: ExpenseCreate
     return this.userService.getUserExpenses(userId);
   }
 
+  @Get(':userId/balance')
+  async getAccountBalance(@Param('userId') userId: string) {
+    return this.userService.getAccountBalance(userId);
+  }
+
+  @Post(':userId/balance')
+  async updateAccountBalance(
+    @Param('userId') userId: string,
+    @Body('amount') amount: number,
+  ) {
+    return this.userService.updateAccountBalance(userId, amount);
+  }
+
   @Get(':email')
   async getUserByEmail(@Param('email') email: string) {
     return this.userService.findOneByEmail(email);
   }
+
 }

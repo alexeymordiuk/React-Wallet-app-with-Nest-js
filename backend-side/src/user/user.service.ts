@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { Expense, ExpenseCreateInput, LoginDto, User } from 'src/interface/interface';
+import { Expense, ExpenseCreateInput, LoginDto, User, UserUpdateInput } from 'src/interface/interface';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -99,5 +99,39 @@ export class UserService {
       where: { email },
       include: { expenses: true },
     });
+  }
+
+  async findOne(id: string | number): Promise<User> {
+    return this.prisma.user.findUnique({
+      where: { id: typeof id === 'string' ? id : id.toString() },
+    });
+  }
+
+  async updateAccountBalance(id: string, amount: number): Promise<User> {
+    return this.prisma.user.update({
+      where: { id },
+      data: {
+        balance: {
+          increment: amount,
+        },
+      },
+    });
+  }
+
+  async getAccountBalance(id: string): Promise<number> {
+    const user = await this.findOne(id);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    const expenses = await this.prisma.expense.findMany({
+      where: {
+        userId: id,
+      },
+    });
+    const totalExpenses = expenses.reduce(
+      (total, expense) => total + expense.amount,
+      0,
+    );
+    return user.balance - totalExpenses;
   }
 }

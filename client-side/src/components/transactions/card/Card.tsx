@@ -1,12 +1,13 @@
-import { FC } from 'react'
+import { FC  } from 'react'
 import { CardStyled } from './Card.styled'
 
-const Card: FC = () => {
+const Card: FC<{balance: number | null}> = ({balance}) => {
+
+
   return (
     <CardStyled>
-        <h2>Visa</h2>
-        <p>Balanse</p>
-        <span>$ 9,300</span>
+      <h2>Visa</h2>
+      {balance !== null && <p>Balance: {balance}</p>}
     </CardStyled>
   )
 }

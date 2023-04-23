@@ -32,7 +32,7 @@ export class ExpenseService {
   }
 
   async findOne(id: number): Promise<Expense> {
-    return this.prisma.expense.findUnique({ where: { id } });
+    return this.prisma.expense.findUnique({ where: { id: Number(id) } });
   }
 
   async update(id: number, expense: ExpenseUpdateInput): Promise<Expense> {

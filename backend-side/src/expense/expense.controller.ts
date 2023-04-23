@@ -2,16 +2,32 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Req } from '@nestjs/
 import { Expense } from '@prisma/client';
 import { ExpenseCreateInput, ExpenseUpdateInput } from 'src/interface/interface';
 import { ExpenseService } from './expense.service';
+import { UserService } from 'src/user/user.service';
 
 
 @Controller('expenses')
 export class ExpenseController {
-  constructor(private readonly expenseService: ExpenseService) {}
+  constructor(private readonly expenseService: ExpenseService, 
+    private readonly userService: UserService) {}
 
-  @Post()
-  async create(@Body() expense: ExpenseCreateInput, @Req() req): Promise<Expense> {
-  return this.expenseService.create(expense, req.user.id);
-}
+    async create(@Body() expense: ExpenseCreateInput, @Req() req): Promise<Expense> {
+      const user = await this.userService.findOne(req.user.id);
+    
+      if (!user) {
+        // Handle user not found error
+      }
+    
+      const balance = await this.userService.getAccountBalance(req.user.id);
+    
+      if (balance < expense.amount) {
+        // Handle insufficient balance error
+      }
+    
+      const createdExpense = await this.expenseService.create(expense, req.user.id);
+      await this.userService.updateAccountBalance(req.user.id, -createdExpense.amount);
+    
+      return createdExpense;
+    }
 
   @Get()
   async findAll(): Promise<Expense[]> {
@@ -33,6 +49,6 @@ export class ExpenseController {
 
   @Delete(':id')
   async remove(@Param('id') id: number): Promise<Expense> {
-  return this.expenseService.remove(id);
-}
+    return this.expenseService.remove(id);
+  }
 }
