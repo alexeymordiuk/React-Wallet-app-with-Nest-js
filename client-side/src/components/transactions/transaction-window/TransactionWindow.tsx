@@ -6,6 +6,7 @@ import {
   Window,
   WindowTitle,
 } from "./TransactionWindow.styled";
+import CloseWindowButton from "../../ui/close-window-button/CloseWindowButton";
 
 interface TransactionWindow {
   amount: number | string;
@@ -29,7 +30,7 @@ const TransactionWindow: FC<TransactionWindow> = ({
   return (
     <Window>
       <WindowTitle>Add Transaction</WindowTitle>
-      <button onClick={() => setOpen(!open)}>close</button>
+      <CloseWindowButton onClick={() => setOpen(!open)}/>
       <Form onSubmit={handleSubmit}>
         <Input
           type="text"

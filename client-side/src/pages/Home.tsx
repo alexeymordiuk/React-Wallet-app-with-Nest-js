@@ -1,11 +1,13 @@
-import { FC } from 'react'
-import Header from '../components/header/Header'
+import { FC } from "react";
+import HomeTransactions from "../components/home-transactions/HomeTransactions";
+import { TransactionProvider } from "../components/transactions/TransactionsContext";
 
 const Home: FC = () => {
   return (
-    <div>
-    </div>
-  )
-}
+    <TransactionProvider>
+      <HomeTransactions />
+    </TransactionProvider>
+  );
+};
 
-export default Home
+export default Home;

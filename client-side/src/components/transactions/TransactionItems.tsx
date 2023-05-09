@@ -8,37 +8,40 @@ import {
 } from "../../store/api/expenses.api";
 import Card from "./card/Card";
 import {
-  TransactionAmount,
-  TransactionCategory,
-  TransactionDates,
-  TransactionDeleteBtn,
   TransactionItemsWrraper,
-  TransactionTable,
   TransactionTableHeader,
   TransactionTitle,
 } from "./TransactionItems.styled";
-import { titles } from "../data/transactions.title.data";
-import { BsFillTrashFill } from "react-icons/bs";
-import { getAccountBalance, updateAccountBalance } from "../../api/expense.api";
+import { updateAccountBalance } from "../../api/expense.api";
 import TransactionTotalControls from "./transactions-controls/TransactionTotalControls";
+import { titles } from "../data/transactions.title.data";
+import { useTransactions } from "./TransactionsContext";
+import TransactionList from "./transactions-list/TransactionList";
 
 const TransactionItems: FC = () => {
-  const [amount, setAmount] = useState("");
-  const [category, setCategory] = useState("");
-  const [deletingExpenseId, setDeletingExpenseId] = useState<number | null>(
-    null
-  );
-  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const {
+    balance,
+    setBalance,
+    expenses,
+    setExpenses,
+    category,
+    setCategory,
+    setAmount,
+    amount,
+    inputValue,
+    setInputValue,
+    deletingExpenseId,
+    setDeletingExpenseId,
+    userId,
+    loggedInUser,
+  } = useTransactions();
+
   const [open, setOpen] = useState(false);
-  const [balance, setBalance] = useState<number | null>(null);
-  const [inputValue, setInputValue] = useState("");
   const totalAmount = expenses.reduce(
     (sum, expense) => sum + expense.amount,
     0
   );
   const dispatch: any = useDispatch();
-  const loggedInUser = localStorage.getItem("loggedInUser");
-  const userId = loggedInUser ? JSON.parse(loggedInUser).id : null;
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
@@ -83,8 +86,6 @@ const TransactionItems: FC = () => {
 
   const balanceUpdate = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("userId:", userId);
-    console.log("inputValue:", inputValue);
     try {
       const newBalance = await updateAccountBalance(
         userId,
@@ -97,58 +98,24 @@ const TransactionItems: FC = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchBalance = async () => {
-      if (userId) {
-        try {
-          const balance = await getAccountBalance(userId);
-          setBalance(balance);
-        } catch (error) {
-          console.error("Failed to get balance:", error);
-        }
-      }
-    };
-
-    fetchBalance();
-  }, [userId]);
-
-  useEffect(() => {
-    const userId = loggedInUser ? JSON.parse(loggedInUser).id : null;
-    if (userId) {
-      getExpense(userId).then((data) => {
-        setExpenses(data);
-      });
-    }
-  }, []);
-
   return (
     <>
       {loggedInUser ? (
         <TransactionItemsWrraper>
           <Card balance={balance} />
           <div>
-            <TransactionTable>
+            <div>
               <TransactionTableHeader>
                 {titles.map(({ id, title }) => (
                   <TransactionTitle key={id}>{title}</TransactionTitle>
                 ))}
               </TransactionTableHeader>
-              {expenses.map((expense) => (
-                <TransactionDates key={expense.id}>
-                  <TransactionAmount>{expense.createdAt}</TransactionAmount>
-                  <TransactionCategory>{expense.category}</TransactionCategory>
-                  <TransactionAmount>
-                    - {expense.amount} Uah
-                    <TransactionDeleteBtn
-                      disabled={deletingExpenseId === expense.id}
-                      onClick={() => handleDeleteExpense(expense.id)}
-                    >
-                      <BsFillTrashFill />
-                    </TransactionDeleteBtn>
-                  </TransactionAmount>
-                </TransactionDates>
-              ))}
-            </TransactionTable>
+              <TransactionList
+                expenses={expenses}
+                handleDeleteExpense={handleDeleteExpense}
+                deletingExpenseId={deletingExpenseId}
+              />
+            </div>
             <TransactionTotalControls
               balanceUpdate={balanceUpdate}
               handleSubmit={handleSubmit}

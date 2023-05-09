@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Window = styled.div({
-    width: '50vw',
+    width: '90%',
+    maxWidth: '700px',
     minHeight: '50vh',
     background: '#1d1d1d',
     position: 'absolute',
@@ -21,7 +22,8 @@ export const Form = styled.form({
     flexDirection: 'column',
     gap: '20px 0',
     width: '100%', 
-    maxWidth: '600px'
+    maxWidth: '600px',
+    position: 'relative'
 })
 
 export const Input = styled.input({
@@ -48,6 +50,9 @@ export const SubmitButton = styled.button({
 })
 
 export const WindowTitle = styled.h2({
-    
+    fontSize: '25px',
+    color: '#ffffff',
+    fontWeight: '500',
+    marginBottom: '20px'
 })
 

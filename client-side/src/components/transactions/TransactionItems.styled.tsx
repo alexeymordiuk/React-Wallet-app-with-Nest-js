@@ -10,25 +10,13 @@ export const TransactionItemsWrraper = styled.div({
     gridTemplateColumns: '1fr 2fr',
     justifyContent: 'space-between',
     minHeight: 'calc(100vh - 150px)',
-    gap: '0 40px'
+    gap: '30px 40px',
+
+    [`@media (max-width: 750px)`]: {
+      gridTemplateColumns: '1fr',
+    },
 })
 
-export const TransactionTable = styled.div({
-  marginBottom: '20px',
-  height: 'calc(100vh - 220px)',
-  overflowY: 'auto',
-  '&::-webkit-scrollbar': {
-    width: '10px',
-  },
-  '&::-webkit-scrollbar-track': {
-    background: 'none'
-  },
-  '&::-webkit-scrollbar-thumb': {
-    backgroundColor: '#1d1d1d',
-    width: '1px',
-    borderRadius: '12px'
-  },
-});
 
 export const TransactionTableHeader = styled.div({
     display: 'flex',
@@ -41,16 +29,6 @@ export const TransactionTableHeader = styled.div({
     marginBottom: '20px'
 })
 
-export const TransactionDates = styled.div({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: '0 15px',
-    background: '#1d1d1d',
-    borderRadius: '20px',
-    padding: '20px',
-    marginBottom: '20px'
-})
 
 export const TransactionTitle = styled.h2({
     fontSize: '20px',
@@ -58,11 +36,6 @@ export const TransactionTitle = styled.h2({
     color: "#ffffff"
 })
 
-export const TransactionCategory = styled.h4({
-    fontSize: '18px',
-    fontWeight: '500',
-    color: "#ffffff"
-})
 
 export const TransactionAmount = styled.span({
     fontSize: '18px',
@@ -80,18 +53,10 @@ export const TransactionTotal = styled.div({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: '0 20px'
+    gap: '20px',
+
+    [`@media (max-width: 750px)`]: {
+      flexDirection: 'column',
+    },
 })
 
-export const TransactionDeleteBtn = styled.button({
-    background: 'none',
-    color: '#ffffff',
-    display: 'flex',
-    fontSize: '22px',
-    cursor: 'pointer',
-    transition: '0.3s ease-in-out',
-
-    "&:hover": {
-    color: '#1ABF52'
-    }
-})

@@ -1,10 +1,13 @@
-import { FC } from 'react'
-import TransactionItems from './TransactionItems'
+import { FC } from "react";
+import TransactionItems from "./TransactionItems";
+import { TransactionProvider } from "./TransactionsContext";
 
 const TransactionTable: FC = () => {
   return (
-    <TransactionItems/>
-  )
-}
+    <TransactionProvider>
+      <TransactionItems />
+    </TransactionProvider>
+  );
+};
 
-export default TransactionTable
+export default TransactionTable;
