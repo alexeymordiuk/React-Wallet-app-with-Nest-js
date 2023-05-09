@@ -95,22 +95,3 @@ export const TransactionDeleteBtn = styled.button({
     color: '#1ABF52'
     }
 })
-
-export const AddTransactionBtn = styled.button({
-    background: 'none',
-    border: '1px solid #1ABF52',
-    borderRadius: '50%',
-    height: '40px',
-    width: '40px',
-    cursor: 'pointer',
-    fontSize: '22px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: "#ffffff",
-    transition: '0.3s ease-in-out',
-
-    "&:hover": {
-    background: '#1ABF52'
-    }
-})

@@ -1,18 +1,24 @@
-import { FC, FormEvent, memo } from "react";
+import { FC, FormEvent, memo, useState } from "react";
 import {
-  AddTransactionBtn,
   TransactionAmount,
   TransactionTotal,
 } from "../TransactionItems.styled";
-import { BsPlus } from "react-icons/bs";
+import BalanceUpdateWindow from "../balance-update-window/BalanceUpdateWindow";
+import TransactionWindow from "../transaction-window/TransactionWindow";
+import OpenWindowButton from "../../ui/open-window-button/OpenWindowButton";
 
 interface ITransactionControlsProps {
   balanceUpdate: (e: FormEvent<HTMLFormElement>) => Promise<void>;
   inputValue: string;
   setInputValue: (value: string) => void;
   totalAmount: number;
-  setOpen: (value: boolean) => void;
+  amount: number | string;
+  setAmount: (value: string) => void;
+  category: string;
+  setCategory: (value: string) => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
   open: boolean;
+  setOpen: (value: boolean) => void;
 }
 
 const TransactionTotalControls: FC<ITransactionControlsProps> = ({
@@ -20,27 +26,39 @@ const TransactionTotalControls: FC<ITransactionControlsProps> = ({
   inputValue,
   setInputValue,
   totalAmount,
-  setOpen,
+  handleSubmit,
+  amount,
+  setAmount,
+  category,
+  setCategory,
   open,
+  setOpen,
 }) => {
+  const [onShowWindow, setOnShowWindow] = useState(false);
+
   return (
     <TransactionTotal>
-      <form onSubmit={balanceUpdate}>
-        <input
-          type="text"
-          placeholder="Enter amount"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+      {onShowWindow && (
+        <BalanceUpdateWindow
+          balanceUpdate={balanceUpdate}
+          inputValue={inputValue}
+          setInputValue={setInputValue}
         />
-        <button type="submit">Update Balance</button>
-      </form>
+      )}
+        {open && (
+            <TransactionWindow
+              handleSubmit={handleSubmit}
+              amount={amount}
+              category={category}
+              setCategory={setCategory}
+              setAmount={setAmount}
+              open={open}
+              setOpen={setOpen}
+            />
+          )}
       <TransactionAmount>Total: - {totalAmount} Uah</TransactionAmount>
-      <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-        <TransactionAmount>Add Transaction</TransactionAmount>
-        <AddTransactionBtn onClick={() => setOpen(!open)}>
-          <BsPlus />
-        </AddTransactionBtn>
-      </div>
+      <OpenWindowButton title={'Add balance'} onClick={() => setOnShowWindow(!onShowWindow)}/>
+      <OpenWindowButton title={'Add Transaction'} onClick={() => setOpen(!open)}/>
     </TransactionTotal>
   );
 };

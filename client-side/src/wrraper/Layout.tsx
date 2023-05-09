@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Outlet } from "react-router-dom";
-import { Container } from "../components/Container";
+import { Container } from "../components/ui/Container";
 import Header from "../components/header/Header";
 import { Wrraper } from "../components/ui/Wrraper";
 

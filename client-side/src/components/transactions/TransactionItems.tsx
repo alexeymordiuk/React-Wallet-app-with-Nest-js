@@ -8,7 +8,6 @@ import {
 } from "../../store/api/expenses.api";
 import Card from "./card/Card";
 import {
-  AddTransactionBtn,
   TransactionAmount,
   TransactionCategory,
   TransactionDates,
@@ -17,12 +16,11 @@ import {
   TransactionTable,
   TransactionTableHeader,
   TransactionTitle,
-  TransactionTotal,
 } from "./TransactionItems.styled";
-import { titles } from "./transactions.title.data";
-import TransactionWindow from "./transaction-window/TransactionWindow";
-import { BsFillTrashFill, BsPlus } from "react-icons/bs";
+import { titles } from "../data/transactions.title.data";
+import { BsFillTrashFill } from "react-icons/bs";
 import { getAccountBalance, updateAccountBalance } from "../../api/expense.api";
+import TransactionTotalControls from "./transactions-controls/TransactionTotalControls";
 
 const TransactionItems: FC = () => {
   const [amount, setAmount] = useState("");
@@ -151,38 +149,20 @@ const TransactionItems: FC = () => {
                 </TransactionDates>
               ))}
             </TransactionTable>
-            <TransactionTotal>
-              <form onSubmit={balanceUpdate}>
-                <input
-                  type="text"
-                  placeholder="Enter amount"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                />
-                <button type="submit">Update Balance</button>
-              </form>
-              <TransactionAmount>Total: - {totalAmount} Uah</TransactionAmount>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "15px" }}
-              >
-                <TransactionAmount>Add Transaction</TransactionAmount>
-                <AddTransactionBtn onClick={() => setOpen(!open)}>
-                  <BsPlus />
-                </AddTransactionBtn>
-              </div>
-            </TransactionTotal>
-          </div>
-          {open && (
-            <TransactionWindow
+            <TransactionTotalControls
+              balanceUpdate={balanceUpdate}
               handleSubmit={handleSubmit}
-              amount={amount}
-              category={category}
-              setCategory={setCategory}
-              setAmount={setAmount}
               open={open}
               setOpen={setOpen}
+              amount={amount}
+              setAmount={setAmount}
+              setCategory={setCategory}
+              category={category}
+              inputValue={inputValue}
+              setInputValue={setInputValue}
+              totalAmount={totalAmount}
             />
-          )}
+          </div>
         </TransactionItemsWrraper>
       ) : (
         <div>You need to Login for this page</div>
