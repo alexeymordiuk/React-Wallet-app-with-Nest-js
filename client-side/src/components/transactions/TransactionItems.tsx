@@ -20,7 +20,7 @@ import {
   TransactionTotal,
 } from "./TransactionItems.styled";
 import { titles } from "./transactions.title.data";
-import TransactionWindow from "./TransactionWindow";
+import TransactionWindow from "./transaction-window/TransactionWindow";
 import { BsFillTrashFill, BsPlus } from "react-icons/bs";
 import { getAccountBalance, updateAccountBalance } from "../../api/expense.api";
 
@@ -33,7 +33,7 @@ const TransactionItems: FC = () => {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [open, setOpen] = useState(false);
   const [balance, setBalance] = useState<number | null>(null);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const totalAmount = expenses.reduce(
     (sum, expense) => sum + expense.amount,
     0
@@ -88,9 +88,12 @@ const TransactionItems: FC = () => {
     console.log("userId:", userId);
     console.log("inputValue:", inputValue);
     try {
-      const newBalance = await updateAccountBalance(userId, parseInt(inputValue));
+      const newBalance = await updateAccountBalance(
+        userId,
+        parseInt(inputValue)
+      );
       setBalance(newBalance);
-      setInputValue('');
+      setInputValue("");
     } catch (error) {
       console.error("Failed to update balance:", error);
     }
@@ -107,10 +110,9 @@ const TransactionItems: FC = () => {
         }
       }
     };
-  
+
     fetchBalance();
   }, [userId]);
-
 
   useEffect(() => {
     const userId = loggedInUser ? JSON.parse(loggedInUser).id : null;
@@ -125,7 +127,7 @@ const TransactionItems: FC = () => {
     <>
       {loggedInUser ? (
         <TransactionItemsWrraper>
-          <Card balance={balance}/>
+          <Card balance={balance} />
           <div>
             <TransactionTable>
               <TransactionTableHeader>

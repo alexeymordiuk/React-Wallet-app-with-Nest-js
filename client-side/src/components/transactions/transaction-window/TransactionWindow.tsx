@@ -1,5 +1,11 @@
 import { FC } from "react";
-import { Form, Input, SubmitButton, Window, WindowTitle } from "./TransactionWindow.styled";
+import {
+  Form,
+  Input,
+  SubmitButton,
+  Window,
+  WindowTitle,
+} from "./TransactionWindow.styled";
 
 interface TransactionWindow {
   amount: number | string;
@@ -18,7 +24,7 @@ const TransactionWindow: FC<TransactionWindow> = ({
   category,
   setCategory,
   open,
-  setOpen
+  setOpen,
 }) => {
   return (
     <Window>

@@ -3,7 +3,7 @@ import TransactionItems from './TransactionItems'
 
 const TransactionTable: FC = () => {
   return (
-      <TransactionItems/>
+    <TransactionItems/>
   )
 }
 
