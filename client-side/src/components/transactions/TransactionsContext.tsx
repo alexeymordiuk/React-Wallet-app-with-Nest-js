@@ -88,7 +88,7 @@ export const TransactionProvider = ({ children }: TransactionProviderProps) => {
       }
     };
     fetchBalance();
-  }, [userId]);
+  }, [userId, balance]);
 
   const value: TransactionContextType = {
     expenses,

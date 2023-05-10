@@ -56,6 +56,11 @@ const TransactionItems: FC = () => {
       setAmount("");
       setCategory("");
       setOpen(!open);
+      if (balance !== null) {
+        const newBalance = balance - newExpense.amount;
+        setBalance(newBalance);
+        await updateAccountBalance(userId, newBalance);
+      }
     } catch (error) {
       console.error("Failed to add expense:", error);
     }
