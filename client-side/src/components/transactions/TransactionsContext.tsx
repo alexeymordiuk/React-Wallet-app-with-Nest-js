@@ -26,6 +26,7 @@ interface TransactionContextType {
   setDeletingExpenseId: Dispatch<SetStateAction<number | null>>;
   userId: any;
   loggedInUser: string | null;
+  totalAmount: number;
 }
 
 interface TransactionProviderProps {
@@ -47,6 +48,7 @@ export const TransactionContext = createContext<TransactionContextType>({
   setDeletingExpenseId: () => {},
   userId: null,
   loggedInUser: "",
+  totalAmount: 1
 });
 
 export const TransactionProvider = ({ children }: TransactionProviderProps) => {
@@ -60,6 +62,10 @@ export const TransactionProvider = ({ children }: TransactionProviderProps) => {
   );
   const loggedInUser = localStorage.getItem("loggedInUser");
   const userId = loggedInUser ? JSON.parse(loggedInUser).id : null;
+  const totalAmount = expenses.reduce(
+    (sum, expense) => sum + expense.amount,
+    0
+  );
 
   useEffect(() => {
     const userId = loggedInUser ? JSON.parse(loggedInUser).id : null;
@@ -68,7 +74,7 @@ export const TransactionProvider = ({ children }: TransactionProviderProps) => {
         setExpenses(data);
       });
     }
-  }, []);
+  }, [expenses]);
 
   useEffect(() => {
     const fetchBalance = async () => {
@@ -99,6 +105,7 @@ export const TransactionProvider = ({ children }: TransactionProviderProps) => {
     setDeletingExpenseId,
     userId,
     loggedInUser,
+    totalAmount
   };
 
   return (

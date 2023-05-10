@@ -1,6 +1,5 @@
-import { FC, FormEvent, useEffect, useState } from "react";
+import { FC, FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getExpense } from "../../api/user.api";
 import { Expense } from "../../interface/user.interface";
 import {
   addExpenseAsync,
@@ -17,6 +16,7 @@ import TransactionTotalControls from "./transactions-controls/TransactionTotalCo
 import { titles } from "../data/transactions.title.data";
 import { useTransactions } from "./TransactionsContext";
 import TransactionList from "./transactions-list/TransactionList";
+import { addExpense } from "../../api/user.api";
 
 const TransactionItems: FC = () => {
   const {
@@ -34,18 +34,13 @@ const TransactionItems: FC = () => {
     setDeletingExpenseId,
     userId,
     loggedInUser,
+    totalAmount
   } = useTransactions();
 
   const [open, setOpen] = useState(false);
-  const totalAmount = expenses.reduce(
-    (sum, expense) => sum + expense.amount,
-    0
-  );
   const dispatch: any = useDispatch();
 
-  const handleSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
-  ): Promise<void> => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     if (userId === null) {
       return;
@@ -56,9 +51,8 @@ const TransactionItems: FC = () => {
       userId,
     };
     try {
-      const resultAction = await dispatch(
-        addExpenseAsync({ userId: String(userId), expenseData })
-      );
+      const newExpense = await addExpense(userId, expenseData);
+      setExpenses([...expenses, newExpense]);
       setAmount("");
       setCategory("");
       setOpen(!open);
@@ -132,7 +126,7 @@ const TransactionItems: FC = () => {
           </div>
         </TransactionItemsWrraper>
       ) : (
-        <div>You need to Login for this page</div>
+        <div>Sorry you need to Login for this page</div>
       )}
     </>
   );
