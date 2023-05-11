@@ -23,7 +23,7 @@ const TransactionListItem: FC<ITransactionListItemProps> = ({
       <TransactionListItemText>{expense.createdAt}</TransactionListItemText>
       <TransactionListItemText>{expense.category}</TransactionListItemText>
       <TransactionListItemText>
-        $ {expense.amount}
+        UAH {expense.amount}
         <TransactioItemDeleteBtn
           disabled={deletingExpenseId === expense.id}
           onClick={() => handleDeleteExpense(expense.id)}

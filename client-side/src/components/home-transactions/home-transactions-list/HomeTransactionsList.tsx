@@ -8,11 +8,17 @@ import {
 
 const HomeTransactionsList: FC = () => {
   const { expenses } = useTransactions();
+  const sortedExpenses = expenses.sort((a, b) => {
+    if (a.createdAt && b.createdAt) {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    }
+    return 0;
+  });
 
   return (
     <HomeTransactionListStyled>
       <HomeTransactionListTitle>Today</HomeTransactionListTitle>
-      {expenses.map((expense) => (
+      {sortedExpenses.map((expense) => (
         <HomeTransactionListItem key={expense.id} expense={expense} />
       ))}
     </HomeTransactionListStyled>

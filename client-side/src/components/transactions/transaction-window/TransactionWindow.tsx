@@ -33,7 +33,7 @@ const TransactionWindow: FC<TransactionWindow> = ({
       <CloseWindowButton onClick={() => setOpen(!open)}/>
       <Form onSubmit={handleSubmit}>
         <Input
-          type="text"
+          type="number"
           placeholder="Amount"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}

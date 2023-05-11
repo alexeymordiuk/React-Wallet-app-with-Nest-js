@@ -34,8 +34,15 @@ export const HomeTransactionListStyled = styled.ul({
     background: '#1d1d1d',
     borderRadius: '15px',
     width: "100%",
-    padding: '15px 7px',
+    padding: '15px 10px',
     marginBottom: '20px',
+})
+
+export const HomeTransactionCategoryBlock = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-end',
+  gap: '10px',
 })
 
 export const HomeTransactionCategory = styled.p({
@@ -50,3 +57,4 @@ export const HomeTransactionListTitle = styled.h3({
     color: "#ffffff",
     marginBottom: '15px'
 })
+

@@ -1,9 +1,10 @@
 import { FC } from 'react'
+import StatiscticsRecharts from '../components/statistics/StatiscticsRecharts'
 
-const Statistics: FC = () => {
+const StatisticsPage: FC = () => {
   return (
-    <div>Expenses</div>
+    <StatiscticsRecharts/>
   )
 }
 
-export default Statistics
+export default StatisticsPage
