@@ -1,0 +1,24 @@
+{
+    "version": 2,
+    "env": {
+        "DATABASE_URL": "postgresql://postgres:1234@localhost:5400/costs?schema=public"
+    },
+    "builds": [
+        {
+            "src": "src/main.ts",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "src/main.ts",
+            "methods": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE"
+            ]
+        }
+    ]
+}
