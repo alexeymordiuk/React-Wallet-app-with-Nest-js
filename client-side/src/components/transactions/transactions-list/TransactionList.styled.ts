@@ -2,8 +2,11 @@ import styled from "styled-components";
 
 export const TransactionTableList = styled.ul({
     marginBottom: '20px',
-    height: 'calc(100vh - 350px)',
+    height: 'calc(100vh - 300px)',
     overflowY: 'auto',
+    background: '#232323',
+    borderRadius: '20px',
+    padding: '20px',
     '&::-webkit-scrollbar': {
       width: '10px',
     },

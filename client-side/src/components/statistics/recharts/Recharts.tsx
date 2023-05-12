@@ -4,6 +4,7 @@ import { useTransactions } from "../../transactions/TransactionsContext";
 import { RechartsWrapper } from "./Recharts.styled";
 import DropDownList from "../../ui/drop-down-list/DropDownList";
 import { monthOptions } from "../../data/monthOptionsLabels.data";
+import RechartsCategoryList from "../recharts-category-list/RechartsCategoryList";
 
 type ExpenseSummary = {
   category: string;
@@ -18,13 +19,13 @@ const Recharts: FC = () => {
     startDate: new Date(today.getFullYear(), month, 1),
     endDate: new Date(today.getFullYear(), month + 1, 0),
   });
+  
   const COLORS = [
-    "#0088FE",
-    "#00C49F",
-    "#FFBB28",
-    "#FF8042",
-    "#AF19FF",
-    "#FF1919",
+    "#c9b087",
+    "#2f425f",
+    "#52667a",
+    "#3e836e",
+    "#3abc6f",
   ];
 
   const filteredExpenses = expenses.filter((expense) => {
@@ -70,55 +71,46 @@ const Recharts: FC = () => {
 
   return (
     <RechartsWrapper>
-      <div>
-        <DropDownList
-          options={monthOptions}
-          selectedOption={monthOptions[month]}
-          handleMonthSelect={handleMonthSelect}
-        />
-        {data.length > 0 ? (
-          <PieChart width={600} height={300}>
-            <Pie
-              dataKey="amount"
-              data={data}
-              nameKey="category"
-              innerRadius={100}
-              outerRadius={130}
-              stroke={"0"}
-              labelLine={false}
-            >
-              <Label
-                value={`Total Spend: ${totalSpend}`}
-                position="center"
-                fill="#8884d8"
-              />
-              {data.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
-            </Pie>
-            <Tooltip />
-            <Legend
-              content={(props) => {
-                const { payload } = props;
-                return (
-                  <ul>
-                    {payload?.map((entry, index) => (
-                      <li key={`item-${index}`} style={{ color: entry.color }}>
-                        {`${entry.value} ${entry.payload?.amount}`}
-                      </li>
-                    ))}
-                  </ul>
-                );
-              }}
+      <DropDownList
+        options={monthOptions}
+        selectedOption={monthOptions[month]}
+        handleMonthSelect={handleMonthSelect}
+      />
+      {data.length > 0 ? (
+        <PieChart width={600} height={340}>
+          <Pie
+            dataKey="amount"
+            data={data}
+            nameKey="category"
+            innerRadius={100}
+            outerRadius={125}
+            stroke={"0"}
+            labelLine={false}
+          >
+            <Label
+              value={`Total Spend: 
+              UAH ${totalSpend}`}
+              position="center"
+              fill="#ffffff"
             />
-          </PieChart>
-        ) : (
-          <p>No expenses found in the selected date range.</p>
-        )}
-      </div>
+            {data.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+              />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend
+            content={(props) => {
+              const { payload } = props;
+              return <RechartsCategoryList payload={payload} />;
+            }}
+          />
+        </PieChart>
+      ) : (
+        <p>No expenses found in the selected date range.</p>
+      )}
     </RechartsWrapper>
   );
 };

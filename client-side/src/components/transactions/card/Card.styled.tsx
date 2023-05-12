@@ -4,7 +4,7 @@ export const CardStyled = styled.div({
     height: '200px',
     maxWidth: '1000px',
     width: '100%',
-    background: '#4e6348',
+    background: '-webkit-linear-gradient(bottom, rgb(52, 86, 77) 0%, rgb(52, 113, 88) 100%);',
     borderRadius: '35px',
     padding: '15px 18px',
     display: 'flex',

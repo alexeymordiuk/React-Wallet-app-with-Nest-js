@@ -2,9 +2,6 @@ import styled from "styled-components";
 
 export const TransactionItemsWrraper = styled.div({
     width: '100%',
-    maxWidth: '1100px',
-    background: '#232323',
-    padding: '20px',
     borderRadius: '20px',
     display: 'grid',
     gridTemplateColumns: '1fr 2fr',

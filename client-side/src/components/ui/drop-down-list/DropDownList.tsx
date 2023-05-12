@@ -2,6 +2,8 @@ import React, { FC } from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { DropDownListStyled } from "./DropDownList.styled";
+import {RxCalendar} from 'react-icons/rx'
 
 interface IDropDownListProps {
   selectedOption: { value: number; label: string };
@@ -28,7 +30,7 @@ const DropDownList: FC<IDropDownListProps> = ({
   };
 
   return (
-    <div>
+    <DropDownListStyled>
       <Button
         id="demo-positioned-button"
         aria-controls={open ? "demo-positioned-menu" : undefined}
@@ -36,7 +38,7 @@ const DropDownList: FC<IDropDownListProps> = ({
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        {selectedOption.label}
+       <RxCalendar/> {selectedOption.label}
       </Button>
       <Menu
         id="demo-positioned-menu"
@@ -67,7 +69,7 @@ const DropDownList: FC<IDropDownListProps> = ({
           </MenuItem>
         ))}
       </Menu>
-    </div>
+    </DropDownListStyled>
   );
 };
 

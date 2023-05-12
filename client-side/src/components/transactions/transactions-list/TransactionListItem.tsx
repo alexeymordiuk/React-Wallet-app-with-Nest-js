@@ -6,6 +6,7 @@ import {
   TransactionListItemText,
 } from "./TransactionList.styled";
 import { BsFillTrashFill } from "react-icons/bs";
+import dayjs from "dayjs";
 
 interface ITransactionListItemProps {
   expense: Expense;
@@ -18,9 +19,11 @@ const TransactionListItem: FC<ITransactionListItemProps> = ({
   handleDeleteExpense,
   deletingExpenseId,
 }) => {
+  const date = dayjs(expense.createdAt).format('DD.MM') 
+
   return (
     <TransactionListItemStyled>
-      <TransactionListItemText>{expense.createdAt}</TransactionListItemText>
+      <TransactionListItemText>{date}</TransactionListItemText>
       <TransactionListItemText>{expense.category}</TransactionListItemText>
       <TransactionListItemText>
         UAH {expense.amount}

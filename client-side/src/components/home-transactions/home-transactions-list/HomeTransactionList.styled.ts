@@ -1,13 +1,24 @@
 import styled from "styled-components";
 
+
+export const HomeTransactionWrapper = styled.div({
+  display: 'grid',
+  gridTemplateColumns: '1fr 2fr',
+  width: '100%',
+  gap: '40px',
+
+  [`@media (max-width: 750px)`]: {
+    gridTemplateColumns: '1fr',
+  },
+})
+
 export const HomeTransactionListStyled = styled.ul({
     width: '100%',
     maxWidth: '1000px',
     padding: '20px',
     borderRadius: '20px',
-    height: 'calc(100vh - 400px)',
+    height: 'calc(100vh - 150px)',
     background: 'rgba(35,35,35,255)',
-    margin: '25px 0',
     overflowY: 'auto',
     '&::-webkit-scrollbar': {
       width: '10px',
