@@ -7,3 +7,11 @@ export const DropDownListStyled = styled('div')({
    justifyContent: 'center',
    flexDirection: 'column'
 })
+
+export const DropDownInnerText = styled('p')({
+  fontSize: '22px',
+  color: '#ffffff',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '15px'
+})

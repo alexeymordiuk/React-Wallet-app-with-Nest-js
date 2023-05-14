@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { DropDownListStyled } from "./DropDownList.styled";
+import { DropDownInnerText, DropDownListStyled } from "./DropDownList.styled";
 import {RxCalendar} from 'react-icons/rx'
 
 interface IDropDownListProps {
@@ -38,7 +38,7 @@ const DropDownList: FC<IDropDownListProps> = ({
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-       <RxCalendar/> {selectedOption.label}
+       <DropDownInnerText><RxCalendar/> {selectedOption.label}</DropDownInnerText>
       </Button>
       <Menu
         id="demo-positioned-menu"

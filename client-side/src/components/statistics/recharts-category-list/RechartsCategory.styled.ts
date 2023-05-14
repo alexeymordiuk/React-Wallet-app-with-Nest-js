@@ -2,14 +2,14 @@ import { Theme, styled } from "@mui/material";
 import { Payload } from "recharts/types/component/DefaultLegendContent";
 
 export const RechartsCategotyListStyled = styled('ul')({
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3,1fr)',
     gap: '15px',
-    width: 'calc(100vw - 100px)',
+    height: 'calc(100vh - 610px)',
 
     [`@media (max-width: 750px)`]: {
-        width: 'calc(100vw - 5px)',
+        height: 'calc(100vh - 800px)',
+        gridTemplateColumns: '1fr',
     },
 })
 

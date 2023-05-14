@@ -7,6 +7,8 @@ import {BiHealth} from 'react-icons/bi'
 import {ImScissors} from "react-icons/im";
 import {GiGamepad} from 'react-icons/gi'
 import {TbBottle} from 'react-icons/tb'
+import {AiFillCar} from 'react-icons/ai'
+import {BiCoffeeTogo} from 'react-icons/bi'
 
 export const categoryIconMap: Record<string, JSX.Element> = {
   Products: <CategoryIconComponent icon={<BsShop/>} category={'Products'}/>,
@@ -23,4 +25,6 @@ export const categoryIconMap: Record<string, JSX.Element> = {
   Hairdresser: <CategoryIconComponent icon={<ImScissors/>} category={'Hairdresser'}/>,
   Entertainment: <CategoryIconComponent icon={<GiGamepad/>} category={'Entertainment'}/>,
   Cola: <CategoryIconComponent icon={<TbBottle/>} category={'Cola'}/>,
+  Taxi: <CategoryIconComponent icon={<AiFillCar/>} category={'Taxi'}/>,
+  Coffe: <CategoryIconComponent icon={<BiCoffeeTogo/>} category={'Coffe'}/>,
 };

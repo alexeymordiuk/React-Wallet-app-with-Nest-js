@@ -8,7 +8,9 @@ interface IRechartsCategoryItemProps {
 
 const RechartsCategoryItem: FC<IRechartsCategoryItemProps> = ({ entry }) => {
   return (
-    <RechartsCategotyItemtStyled entry={entry}><div></div>{`${entry.value} UAH ${entry.payload?.amount}`}</RechartsCategotyItemtStyled>
+    <RechartsCategotyItemtStyled entry={entry}>
+      {`${entry.value} UAH ${entry.payload?.amount}`}
+    </RechartsCategotyItemtStyled>
   );
 };
 

@@ -3,9 +3,10 @@ import styled from 'styled-components';
 export const RechartsWrapper = styled.section({
 
     ".recharts-legend-wrapper" : {
-    overflow: 'auto!important',
+    overflowY: 'auto!important' as any,
     position: 'static!important' as any,
-    
+    margin: '0 auto',
+
     '&::-webkit-scrollbar': {
         width: '2px',
         height: '6px'
@@ -21,11 +22,6 @@ export const RechartsWrapper = styled.section({
 
     [`@media (max-width: 750px)`]: {
       maxWidth: '300px!important',
-      width: '100%!important',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      margin: '0 auto'
     },
     }
 })

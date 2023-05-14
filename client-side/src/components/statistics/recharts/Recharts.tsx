@@ -5,6 +5,7 @@ import { RechartsWrapper } from "./Recharts.styled";
 import DropDownList from "../../ui/drop-down-list/DropDownList";
 import { monthOptions } from "../../data/monthOptionsLabels.data";
 import RechartsCategoryList from "../recharts-category-list/RechartsCategoryList";
+import LoginEmptyBlock from "../../ui/login-empty-block/LoginEmptyBlock";
 
 type ExpenseSummary = {
   category: string;
@@ -19,13 +20,16 @@ const Recharts: FC = () => {
     startDate: new Date(today.getFullYear(), month, 1),
     endDate: new Date(today.getFullYear(), month + 1, 0),
   });
-  
+  const { loggedInUser } = useTransactions();
+
   const COLORS = [
     "#c9b087",
     "#2f425f",
     "#52667a",
     "#3e836e",
     "#3abc6f",
+    "#8B0000",
+    "#FFC300",
   ];
 
   const filteredExpenses = expenses.filter((expense) => {
@@ -70,48 +74,54 @@ const Recharts: FC = () => {
   };
 
   return (
-    <RechartsWrapper>
-      <DropDownList
-        options={monthOptions}
-        selectedOption={monthOptions[month]}
-        handleMonthSelect={handleMonthSelect}
-      />
-      {data.length > 0 ? (
-        <PieChart width={600} height={340}>
-          <Pie
-            dataKey="amount"
-            data={data}
-            nameKey="category"
-            innerRadius={100}
-            outerRadius={125}
-            stroke={"0"}
-            labelLine={false}
-          >
-            <Label
-              value={`Total Spend: 
-              UAH ${totalSpend}`}
-              position="center"
-              fill="#ffffff"
-            />
-            {data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend
-            content={(props) => {
-              const { payload } = props;
-              return <RechartsCategoryList payload={payload} />;
-            }}
+    <>
+      {loggedInUser ? (
+        <RechartsWrapper>
+          <DropDownList
+            options={monthOptions}
+            selectedOption={monthOptions[month]}
+            handleMonthSelect={handleMonthSelect}
           />
-        </PieChart>
+          {data.length > 0 ? (
+            <PieChart width={700} height={340}>
+              <Pie
+                dataKey="amount"
+                data={data}
+                nameKey="category"
+                innerRadius={100}
+                outerRadius={125}
+                stroke={"0"}
+                labelLine={false}
+              >
+                <Label
+                  value={`Total Spend: 
+              UAH ${totalSpend}`}
+                  position="center"
+                  fill="#ffffff"
+                />
+                {data.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend
+                content={(props) => {
+                  const { payload } = props;
+                  return <RechartsCategoryList payload={payload} />;
+                }}
+              />
+            </PieChart>
+          ) : (
+            <p>No expenses found in the selected date range.</p>
+          )}
+        </RechartsWrapper>
       ) : (
-        <p>No expenses found in the selected date range.</p>
+        <LoginEmptyBlock title={"Need to login for this page"} />
       )}
-    </RechartsWrapper>
+    </>
   );
 };
 

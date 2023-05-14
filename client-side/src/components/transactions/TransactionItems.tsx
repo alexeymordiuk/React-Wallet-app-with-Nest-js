@@ -17,6 +17,7 @@ import { titles } from "../data/transactions.title.data";
 import { useTransactions } from "./TransactionsContext";
 import TransactionList from "./transactions-list/TransactionList";
 import { addExpense } from "../../api/user.api";
+import LoginEmptyBlock from "../ui/login-empty-block/LoginEmptyBlock";
 
 const TransactionItems: FC = () => {
   const {
@@ -131,7 +132,7 @@ const TransactionItems: FC = () => {
           </div>
         </TransactionItemsWrraper>
       ) : (
-        <div>Sorry you need to Login for this page</div>
+        <LoginEmptyBlock title={'Need to login for this page'}/>
       )}
     </>
   );
