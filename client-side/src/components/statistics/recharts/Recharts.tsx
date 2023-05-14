@@ -6,6 +6,7 @@ import DropDownList from "../../ui/drop-down-list/DropDownList";
 import { monthOptions } from "../../data/monthOptionsLabels.data";
 import RechartsCategoryList from "../recharts-category-list/RechartsCategoryList";
 import LoginEmptyBlock from "../../ui/login-empty-block/LoginEmptyBlock";
+import { useResponsive } from "../../responsive/ResponsiveProvider";
 
 type ExpenseSummary = {
   category: string;
@@ -21,6 +22,7 @@ const Recharts: FC = () => {
     endDate: new Date(today.getFullYear(), month + 1, 0),
   });
   const { loggedInUser } = useTransactions();
+  const {isSm} = useResponsive()
 
   const COLORS = [
     "#c9b087",
@@ -83,7 +85,7 @@ const Recharts: FC = () => {
             handleMonthSelect={handleMonthSelect}
           />
           {data.length > 0 ? (
-            <PieChart width={700} height={340}>
+            <PieChart width={isSm ? 300 : 700} height={isSm ? 360 : 340}>
               <Pie
                 dataKey="amount"
                 data={data}

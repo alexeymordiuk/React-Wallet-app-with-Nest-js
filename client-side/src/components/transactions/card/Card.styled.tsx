@@ -29,7 +29,20 @@ export const CardVisaTitle = styled.h2({
   })
 
 export const CardBottom= styled.div({
-    marginTop: 'auto'
+    marginTop: 'auto',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+
+    span: {
+      fontSize: '16px',
+      color: "#ffffff"
+    },
+    
+
+    svg: {
+      fontSize: '40px'
+    }
 })
 
 export const CardBalanceSubTitle = styled.p({

@@ -1,6 +1,7 @@
-import styled from 'styled-components';
+import { Theme, styled } from "@mui/material";
 
-export const RechartsWrapper = styled.section({
+
+export const RechartsWrapper = styled('section')<{ theme?: Theme }>(({ theme }) => ({
 
     ".recharts-legend-wrapper" : {
     overflowY: 'auto!important' as any,
@@ -20,8 +21,16 @@ export const RechartsWrapper = styled.section({
         borderRadius: '12px'
       },
 
-    [`@media (max-width: 750px)`]: {
-      maxWidth: '300px!important',
+      [theme.breakpoints.down('sm')]: {
+      width: '300px!important',
     },
+  },
+
+    [theme.breakpoints.down('sm')]: {
+     height: 'calc(100vh - 200px)',
+     display: 'flex',
+     alignItems: 'center',
+     justifyContent: 'center',
+     flexDirection: 'column'
     }
-})
+}))

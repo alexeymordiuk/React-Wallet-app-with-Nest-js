@@ -14,6 +14,11 @@ export const TransactionItemsWrraper = styled.div({
     },
 })
 
+export const TransactionTableHeaderWrapper = styled.div({
+    background: '#232323',
+    padding: '20px',
+    borderRadius: '20px',
+})
 
 export const TransactionTableHeader = styled.div({
     display: 'flex',
@@ -22,7 +27,7 @@ export const TransactionTableHeader = styled.div({
     gap: '0 15px',
     background: '#1d1d1d',
     borderRadius: '20px',
-    padding: '20px',
+    padding: '17px',
     marginBottom: '20px'
 })
 

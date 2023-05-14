@@ -9,6 +9,8 @@ import {GiGamepad} from 'react-icons/gi'
 import {TbBottle} from 'react-icons/tb'
 import {AiFillCar} from 'react-icons/ai'
 import {BiCoffeeTogo} from 'react-icons/bi'
+import {MdSmokingRooms} from 'react-icons/md'
+import {BsHouseDoorFill} from 'react-icons/bs'
 
 export const categoryIconMap: Record<string, JSX.Element> = {
   Products: <CategoryIconComponent icon={<BsShop/>} category={'Products'}/>,
@@ -18,10 +20,10 @@ export const categoryIconMap: Record<string, JSX.Element> = {
   Caffe: <CategoryIconComponent icon={<IoMdRestaurant/>} category={'Restaurants'}/>,
   Mcdonalds: <CategoryIconComponent icon={<SiMcdonalds/>} category={'Mcdonalds'}/>,
   Pizza: <CategoryIconComponent icon={<FaPizzaSlice/>} category={'Pizza'}/>,
-  HousePaymant: <CategoryIconComponent icon={<FaPizzaSlice/>} category={'House Paymant'}/>,
+  HousePaymant: <CategoryIconComponent icon={<BsHouseDoorFill/>} category={'House Paymant'}/>,
   Eva: <CategoryIconComponent icon={<BiHealth/>} category={'Health'}/>,
   Pharmacy: <CategoryIconComponent icon={<BiHealth/>} category={'Health'}/>,
-  Vaip: <CategoryIconComponent icon={<BiHealth/>} category={'Vaip'}/>,
+  Vaip: <CategoryIconComponent icon={<MdSmokingRooms/>} category={'Vaip'}/>,
   Hairdresser: <CategoryIconComponent icon={<ImScissors/>} category={'Hairdresser'}/>,
   Entertainment: <CategoryIconComponent icon={<GiGamepad/>} category={'Entertainment'}/>,
   Cola: <CategoryIconComponent icon={<TbBottle/>} category={'Cola'}/>,

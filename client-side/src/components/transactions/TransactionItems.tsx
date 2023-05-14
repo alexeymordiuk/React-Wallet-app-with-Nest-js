@@ -9,6 +9,7 @@ import Card from "./card/Card";
 import {
   TransactionItemsWrraper,
   TransactionTableHeader,
+  TransactionTableHeaderWrapper,
   TransactionTitle,
 } from "./TransactionItems.styled";
 import { updateAccountBalance } from "../../api/expense.api";
@@ -103,8 +104,8 @@ const TransactionItems: FC = () => {
       {loggedInUser ? (
         <TransactionItemsWrraper>
           <Card balance={balance} />
-          <div>
-            <div>
+          <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+            <TransactionTableHeaderWrapper>
               <TransactionTableHeader>
                 {titles.map(({ id, title }) => (
                   <TransactionTitle key={id}>{title}</TransactionTitle>
@@ -115,7 +116,7 @@ const TransactionItems: FC = () => {
                 handleDeleteExpense={handleDeleteExpense}
                 deletingExpenseId={deletingExpenseId}
               />
-            </div>
+            </TransactionTableHeaderWrapper>
             <TransactionTotalControls
               balanceUpdate={balanceUpdate}
               handleSubmit={handleSubmit}

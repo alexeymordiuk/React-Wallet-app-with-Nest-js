@@ -1,12 +1,11 @@
 import styled from "styled-components";
 
 export const TransactionTableList = styled.ul({
-    marginBottom: '20px',
-    height: 'calc(100vh - 300px)',
+    height: 'calc(100vh - 330px)',
     overflowY: 'auto',
-    background: '#232323',
-    borderRadius: '20px',
-    padding: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
     '&::-webkit-scrollbar': {
       width: '10px',
     },
@@ -20,7 +19,7 @@ export const TransactionTableList = styled.ul({
     },
   
     [`@media (max-width: 750px)`]: {
-      height: 'calc(100vh - 700px)',
+      height: 'calc(100vh - 600px)',
     },
   });
 
@@ -32,7 +31,6 @@ export const TransactionListItemStyled = styled.li({
     background: '#1d1d1d',
     borderRadius: '20px',
     padding: '20px',
-    marginBottom: '20px'
 })
 
 export const TransactionListItemText = styled.span({

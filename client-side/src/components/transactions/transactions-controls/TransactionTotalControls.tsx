@@ -6,6 +6,8 @@ import {
 import BalanceUpdateWindow from "../balance-update-window/BalanceUpdateWindow";
 import TransactionWindow from "../transaction-window/TransactionWindow";
 import OpenWindowButton from "../../ui/open-window-button/OpenWindowButton";
+import { useResponsive } from "../../responsive/ResponsiveProvider";
+import TransactionsMobileControls from "../transactions-mobile-controls/TransactionsMobileControls";
 
 interface ITransactionControlsProps {
   balanceUpdate: (e: FormEvent<HTMLFormElement>) => Promise<void>;
@@ -35,6 +37,7 @@ const TransactionTotalControls: FC<ITransactionControlsProps> = ({
   setOpen,
 }) => {
   const [onShowWindow, setOnShowWindow] = useState(false);
+  const { isSm } = useResponsive();
 
   return (
     <TransactionTotal>
@@ -45,20 +48,37 @@ const TransactionTotalControls: FC<ITransactionControlsProps> = ({
           setInputValue={setInputValue}
         />
       )}
-        {open && (
-            <TransactionWindow
-              handleSubmit={handleSubmit}
-              amount={amount}
-              category={category}
-              setCategory={setCategory}
-              setAmount={setAmount}
-              open={open}
-              setOpen={setOpen}
-            />
-          )}
-      <TransactionAmount>Total: - {totalAmount} Uah</TransactionAmount>
-      <OpenWindowButton title={'Add balance'} onClick={() => setOnShowWindow(!onShowWindow)}/>
-      <OpenWindowButton title={'Add Transaction'} onClick={() => setOpen(!open)}/>
+      {open && (
+        <TransactionWindow
+          handleSubmit={handleSubmit}
+          amount={amount}
+          category={category}
+          setCategory={setCategory}
+          setAmount={setAmount}
+          open={open}
+          setOpen={setOpen}
+        />
+      )}
+      {isSm ? (
+        <TransactionsMobileControls
+          setOnShowWindow={setOnShowWindow}
+          open={open}
+          setOpen={setOpen}
+          onShowWindow={onShowWindow}
+        />
+      ) : (
+        <>
+          <TransactionAmount>Total: - {totalAmount} Uah</TransactionAmount>
+          <OpenWindowButton
+            title={"Update Balance"}
+            onClick={() => setOnShowWindow(!onShowWindow)}
+          />
+          <OpenWindowButton
+            title={"Add Transaction"}
+            onClick={() => setOpen(!open)}
+          />
+        </>
+      )}
     </TransactionTotal>
   );
 };
