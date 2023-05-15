@@ -2,6 +2,7 @@ import { FC } from "react";
 import {
   CategoryIconCircle,
   CategoryIconWrapper,
+  CategoryTitleStyled,
 } from "./CategoryIconComponent.styled";
 
 interface ICategoryIconComponentProps {
@@ -16,7 +17,7 @@ const CategoryIconComponent: FC<ICategoryIconComponentProps> = ({
   return (
     <CategoryIconWrapper>
       <CategoryIconCircle>{icon}</CategoryIconCircle>
-      <h3>{category}</h3>
+      <CategoryTitleStyled variant="accent2" component="h3">{category}</CategoryTitleStyled>
     </CategoryIconWrapper>
   );
 };

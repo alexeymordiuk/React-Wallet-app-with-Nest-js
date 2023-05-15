@@ -9,12 +9,9 @@ import {
 import { checkIsLoggedIn, logOut } from "../../api/user.api";
 import { User } from "../../interface/user.interface";
 import { useNavigate } from "react-router-dom";
-import {
-  FormTitle,
-  FormWrraper,
-  LogOutButton,
-} from "./Form.styled";
+import { FormTitle, FormWrraper} from "./Form.styled";
 import FromBlocks from "./FromBlocks";
+import LogoutBlock from "../ui/logout-block/LogoutBlock";
 
 export interface FormData {
   email: string;
@@ -32,6 +29,8 @@ const Form: FC = () => {
   const navigate = useNavigate();
   const { email, password } = formData;
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const loggedInUser = localStorage.getItem("loggedInUser");
+  const userId = loggedInUser ? JSON.parse(loggedInUser).email : null;
 
   const handleSubmit = async (e: {
     preventDefault: () => void;
@@ -96,24 +95,30 @@ const Form: FC = () => {
 
   return (
     <FormWrraper>
-      <FormTitle>
-        {isLoggedIn ? (
-          <h1>You are logged in!</h1>
-        ) : (
-          <>{isRegistering ? <h1 style={{color: '#ffffff'}}>Registration</h1> : <h1 style={{color: '#ffffff'}}>Login</h1>}</>
-        )}
-      </FormTitle>
-
       {isLoggedIn ? (
-        <LogOutButton onClick={handleLogout}>Log out</LogOutButton>
-      ) : (
-        <FromBlocks
-          formData={formData}
-          setFormData={setFormData}
-          isRegistering={isRegistering}
-          setIsRegistering={setIsRegistering}
-          handleSubmit={handleSubmit}
+        <LogoutBlock
+          onClick={handleLogout}
+          titleBtn={"Log out"}
+          title={"You are login"}
+          email={userId}
         />
+      ) : (
+        <>
+          <FormTitle>
+            {isRegistering ? (
+              <h1 style={{ color: "#ffffff" }}>Registration</h1>
+            ) : (
+              <h1 style={{ color: "#ffffff" }}>Login</h1>
+            )}
+          </FormTitle>
+          <FromBlocks
+            formData={formData}
+            setFormData={setFormData}
+            isRegistering={isRegistering}
+            setIsRegistering={setIsRegistering}
+            handleSubmit={handleSubmit}
+          />
+        </>
       )}
     </FormWrraper>
   );

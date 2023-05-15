@@ -1,13 +1,25 @@
-import { FC } from 'react'
+import { FC } from "react";
+import {
+  LoginEmptyBlockLink,
+  LoginEmptyBlockStyled,
+  LoginEmptyBlockTitle,
+} from "./LoginEmptyBlock.styled";
 
 interface ILoginEmptyBlockProps {
-    title: string
+  title: string;
 }
 
-const LoginEmptyBlock: FC<ILoginEmptyBlockProps> = ({title}) => {
+const LoginEmptyBlock: FC<ILoginEmptyBlockProps> = ({ title }) => {
   return (
-    <div>{title}</div>
-  )
-}
+    <LoginEmptyBlockStyled>
+      <LoginEmptyBlockTitle variant="accent3" component="h2">
+        {title}
+      </LoginEmptyBlockTitle>
+      <LoginEmptyBlockLink to={'/registration'}>
+        Login
+      </LoginEmptyBlockLink>
+    </LoginEmptyBlockStyled>
+  );
+};
 
-export default LoginEmptyBlock
+export default LoginEmptyBlock;

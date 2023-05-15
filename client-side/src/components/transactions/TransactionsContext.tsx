@@ -66,9 +66,14 @@ export const TransactionProvider = ({ children }: TransactionProviderProps) => {
     (sum, expense) => sum + expense.amount,
     0
   );
+  const sortedExpenses = expenses.sort((a, b) => {
+    if (a.createdAt && b.createdAt) {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    }
+    return 0;
+  });
 
   useEffect(() => {
-    const userId = loggedInUser ? JSON.parse(loggedInUser).id : null;
     if (userId) {
       getExpense(userId).then((data) => {
         setExpenses(data);

@@ -3,6 +3,7 @@ import { Expense } from "../../../interface/user.interface";
 import {
   HomeTransactionCategory,
   HomeTransactionCategoryBlock,
+  HomeTransactionListDate,
   HomeTransactionListItemStyled,
 } from "./HomeTransactionList.styled";
 import { categoryIconMap } from "../../map/icons-map/icons.map";
@@ -20,10 +21,10 @@ const HomeTransactionListItem: FC<IHomeTransactionListItemProps> = ({
 
   return (
     <HomeTransactionListItemStyled>
-      <HomeTransactionCategory>
+      <HomeTransactionCategory variant="accent2" component='p'>
         <HomeTransactionCategoryBlock>
           {icon}
-          <p>{formatDate}</p>
+          <HomeTransactionListDate variant="text1" component="span">{formatDate}</HomeTransactionListDate>
         </HomeTransactionCategoryBlock>
       </HomeTransactionCategory>
       <HomeTransactionCategory>UAH {expense.amount}</HomeTransactionCategory>

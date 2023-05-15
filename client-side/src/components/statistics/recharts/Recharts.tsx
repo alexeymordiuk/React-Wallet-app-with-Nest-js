@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, memo, useState } from "react";
 import { PieChart, Pie, Tooltip, Legend, Label, Cell } from "recharts";
 import { useTransactions } from "../../transactions/TransactionsContext";
 import { RechartsWrapper } from "./Recharts.styled";
@@ -7,6 +7,7 @@ import { monthOptions } from "../../data/monthOptionsLabels.data";
 import RechartsCategoryList from "../recharts-category-list/RechartsCategoryList";
 import LoginEmptyBlock from "../../ui/login-empty-block/LoginEmptyBlock";
 import { useResponsive } from "../../responsive/ResponsiveProvider";
+import RechartsLabel from "../recharts-label/RechartsLabel";
 
 type ExpenseSummary = {
   category: string;
@@ -22,7 +23,7 @@ const Recharts: FC = () => {
     endDate: new Date(today.getFullYear(), month + 1, 0),
   });
   const { loggedInUser } = useTransactions();
-  const {isSm} = useResponsive()
+  const { isSm } = useResponsive();
 
   const COLORS = [
     "#c9b087",
@@ -97,7 +98,7 @@ const Recharts: FC = () => {
               >
                 <Label
                   value={`Total Spend: 
-              UAH ${totalSpend}`}
+                  UAH ${totalSpend}`}
                   position="center"
                   fill="#ffffff"
                 />
@@ -127,4 +128,4 @@ const Recharts: FC = () => {
   );
 };
 
-export default Recharts;
+export default memo(Recharts);

@@ -1,18 +1,17 @@
-import styled from "styled-components";
+import { Theme, Typography, TypographyProps, styled } from "@mui/material";
 
-
-export const HomeTransactionWrapper = styled.div({
+export const HomeTransactionWrapper = styled('div')<{ theme?: Theme }>(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: '1fr 2fr',
   width: '100%',
-  gap: '40px',
+  gap: '30px 40px',
 
-  [`@media (max-width: 750px)`]: {
+  [theme.breakpoints.down('sm')]: {
     gridTemplateColumns: '1fr',
   },
-})
+}))
 
-export const HomeTransactionListStyled = styled.ul({
+export const HomeTransactionListStyled = styled('ul')({
     width: '100%',
     maxWidth: '1000px',
     padding: '20px',
@@ -37,7 +36,7 @@ export const HomeTransactionListStyled = styled.ul({
     },
   });
 
-  export const HomeTransactionListItemStyled = styled.li({
+  export const HomeTransactionListItemStyled = styled('li')({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -49,23 +48,22 @@ export const HomeTransactionListStyled = styled.ul({
     marginBottom: '20px',
 })
 
-export const HomeTransactionCategoryBlock = styled.div({
+export const HomeTransactionCategoryBlock = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-end',
   gap: '10px',
 })
 
-export const HomeTransactionCategory = styled.p({
-    fontSize: '18px',
-    fontWeight: '500',
-    color: "#ffffff"
-})
+export const HomeTransactionCategory = styled(Typography)<TypographyProps & { theme?: Theme, component?: string }>(({ theme }) => ({
+    color: theme.colors.white
+}))
 
-export const HomeTransactionListTitle = styled.h3({
-    fontSize: '23px',
-    fontWeight: '500',
-    color: "#ffffff",
-    marginBottom: '15px'
-})
+export const HomeTransactionListTitle = styled(Typography)<TypographyProps & { theme?: Theme, component?: string }>(({ theme }) => ({
+    color: theme.colors.white,
+    marginBottom: '10px'
+}))
 
+export const HomeTransactionListDate = styled(Typography)<TypographyProps & { theme?: Theme, component?: string }>(({ theme }) => ({
+  color: theme.colors.white,
+}))

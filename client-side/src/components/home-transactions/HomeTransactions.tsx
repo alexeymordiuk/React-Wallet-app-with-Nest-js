@@ -9,16 +9,16 @@ const HomeTransactions: FC = () => {
   const { balance, loggedInUser } = useTransactions();
 
   return (
-    <HomeTransactionWrapper>
+    <>
       {loggedInUser ? (
-        <>
+        <HomeTransactionWrapper>
           <Card balance={balance} />
           <HomeTransactionsList />
-        </>
+        </HomeTransactionWrapper>
       ) : (
-        <LoginEmptyBlock title={'Need to login for this page'}/>
+        <LoginEmptyBlock title={"Need to login for this page"} />
       )}
-    </HomeTransactionWrapper>
+    </>
   );
 };
 
