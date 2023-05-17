@@ -24,6 +24,7 @@ export const categoryIconMap: Record<string, JSX.Element> = {
   Eva: <CategoryIconComponent icon={<BiHealth/>} category={'Health'}/>,
   Pharmacy: <CategoryIconComponent icon={<BiHealth/>} category={'Health'}/>,
   Vaip: <CategoryIconComponent icon={<MdSmokingRooms/>} category={'Vaip'}/>,
+  Hookah: <CategoryIconComponent icon={<MdSmokingRooms/>} category={'Hookah'}/>,
   Hairdresser: <CategoryIconComponent icon={<ImScissors/>} category={'Hairdresser'}/>,
   Entertainment: <CategoryIconComponent icon={<GiGamepad/>} category={'Entertainment'}/>,
   Cola: <CategoryIconComponent icon={<TbBottle/>} category={'Cola'}/>,

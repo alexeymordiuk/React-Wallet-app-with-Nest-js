@@ -7,7 +7,7 @@ import { monthOptions } from "../../data/monthOptionsLabels.data";
 import RechartsCategoryList from "../recharts-category-list/RechartsCategoryList";
 import LoginEmptyBlock from "../../ui/login-empty-block/LoginEmptyBlock";
 import { useResponsive } from "../../responsive/ResponsiveProvider";
-import RechartsLabel from "../recharts-label/RechartsLabel";
+import RechartsTooltip from "../recharts-tooltip/RechartsTooltip";
 
 type ExpenseSummary = {
   category: string;
@@ -109,7 +109,10 @@ const Recharts: FC = () => {
                   />
                 ))}
               </Pie>
-              <Tooltip />
+              <Tooltip content={(props) => {
+                  const { payload } = props;
+                  return <RechartsTooltip payload={payload} />;
+                }}/>
               <Legend
                 content={(props) => {
                   const { payload } = props;
